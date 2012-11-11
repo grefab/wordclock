@@ -63,12 +63,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 3, ../sass/style.sass */
+/* line 16, ../sass/style.sass */
 body {
   background-color: black;
 }
 
-/* line 6, ../sass/style.sass */
+/* line 19, ../sass/style.sass */
 centerizer {
   position: relative;
   height: 360px;
@@ -77,17 +77,17 @@ centerizer {
   left: 50%;
   top: 50%;
   margin-left: -180px;
-  margin-top: -192px;
+  margin-top: -192.5px;
   display: table;
 }
 
-/* line 17, ../sass/style.sass */
+/* line 30, ../sass/style.sass */
 clock {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
-/* line 22, ../sass/style.sass */
+/* line 35, ../sass/style.sass */
 clock td {
   color: #222222;
   font-family: sans-serif;
@@ -96,4 +96,8 @@ clock td {
   height: 36px;
   vertical-align: middle;
   text-align: center;
+}
+/* line 45, ../sass/style.sass */
+clock td.active {
+  color: white;
 }
