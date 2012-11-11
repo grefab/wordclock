@@ -3,12 +3,19 @@
 <head>
     <title></title>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="js/clock.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+    <script type="text/javascript">
+        $(document).ready( function() {
+            clock.start();
+        });
+    </script>
 </head>
 <body>
 <centerizer>
-    <clock>
+    <div class="clock">
         <table>
             <tr><td>E</td><td>S</td><td>K</td><td>I</td><td>S</td><td>T</td><td>L</td><td>F</td><td>Ü</td><td>N</td><td>F</td></tr>
             <tr><td>Z</td><td>E</td><td>H</td><td>N</td><td>Z</td><td>W</td><td>A</td><td>N</td><td>Z</td><td>I</td><td>G</td></tr>
@@ -21,7 +28,7 @@
             <tr><td>W</td><td>A</td><td>C</td><td>H</td><td>T</td><td>Z</td><td>E</td><td>H</td><td>N</td><td>R</td><td>S</td></tr>
             <tr><td>B</td><td>S</td><td>E</td><td>C</td><td>H</td><td>S</td><td>F</td><td>M</td><td>U</td><td>H</td><td>R</td></tr>
         </table>
-    </clock>
+    </div>
 </centerizer>
 </body>
 </html>
