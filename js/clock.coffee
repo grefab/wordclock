@@ -89,16 +89,13 @@ class @Clock
     unless arrayEqual(lastTime, currentTime)
       lastTime = currentTime
       blank()
-      setTimeout(
-        () ->
-          activate(digits.es)
-          activate(digits.ist)
+      activate(digits.es)
+      activate(digits.ist)
 
-          [hours, minutes, dots] = currentTime
-          displayHours(hours, minutes)
-          displayMinutes(minutes)
-          displayDots(dots)
-        , 1)
+      [hours, minutes, dots] = currentTime
+      displayHours(hours, minutes)
+      displayMinutes(minutes)
+      displayDots(dots)
 
   blank = ->
     $(".clock .grid td").removeClass("active")

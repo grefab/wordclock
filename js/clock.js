@@ -138,20 +138,17 @@
     };
 
     displayTime = function() {
-      var currentTime;
+      var currentTime, dots, hours, minutes;
       currentTime = getTime();
       if (!arrayEqual(lastTime, currentTime)) {
         lastTime = currentTime;
         blank();
-        return setTimeout(function() {
-          var dots, hours, minutes;
-          activate(digits.es);
-          activate(digits.ist);
-          hours = currentTime[0], minutes = currentTime[1], dots = currentTime[2];
-          displayHours(hours, minutes);
-          displayMinutes(minutes);
-          return displayDots(dots);
-        }, 1);
+        activate(digits.es);
+        activate(digits.ist);
+        hours = currentTime[0], minutes = currentTime[1], dots = currentTime[2];
+        displayHours(hours, minutes);
+        displayMinutes(minutes);
+        return displayDots(dots);
       }
     };
 
