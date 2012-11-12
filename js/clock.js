@@ -2,13 +2,17 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, blank, createSelector, digits, displayHours, displayMinutes, displayTime, getTime;
+    var activate, blank, createSelector, digits, displayHours, displayMinutes, displayTime, getTime, mainLoop;
 
     function Clock() {}
 
     Clock.start = function() {
-      activate(digits.es);
-      return displayTime();
+      return mainLoop();
+    };
+
+    mainLoop = function() {
+      displayTime();
+      return setTimeout(mainLoop, 1000);
     };
 
     getTime = function() {
@@ -58,7 +62,6 @@
     displayMinutes = function(minutes) {
       var fives;
       fives = Math.floor(minutes / 5);
-      console.log(fives);
       switch (fives) {
         case 0:
           return activate(digits.uhr);

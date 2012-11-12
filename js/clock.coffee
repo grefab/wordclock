@@ -1,7 +1,10 @@
 class @Clock
   @start: ->
-    activate(digits.es)
+    mainLoop()
+
+  mainLoop = ->
     displayTime()
+    setTimeout(mainLoop, 1000)
 
   getTime = ->
     d = new Date()
@@ -29,7 +32,6 @@ class @Clock
 
   displayMinutes = (minutes) ->
     fives = Math.floor(minutes / 5)
-    console.log(fives)
     switch fives
       when 0
         activate(digits.uhr)
