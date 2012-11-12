@@ -141,7 +141,7 @@ class @Clock
     uhr: createSelector([[9,10], [10,10], [11,10]])
 
   dots =
-    one: ".clock .dots .one"
-    two: ".clock .dots .two"
-    three: ".clock .dots .three"
-    four: ".clock .dots .four"
+    one: ".clock .dots.one"
+    two: ".clock .dots.two"
+    three: ".clock .dots.three"
+    four: ".clock .dots.four"

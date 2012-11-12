@@ -191,10 +191,10 @@
     };
 
     dots = {
-      one: ".clock .dots .one",
-      two: ".clock .dots .two",
-      three: ".clock .dots .three",
-      four: ".clock .dots .four"
+      one: ".clock .dots.one",
+      two: ".clock .dots.two",
+      three: ".clock .dots.three",
+      four: ".clock .dots.four"
     };
 
     return Clock;

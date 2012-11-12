@@ -63,12 +63,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-/* line 16, ../sass/style.sass */
+/* line 19, ../sass/style.sass */
 body {
   background-color: black;
 }
 
-/* line 19, ../sass/style.sass */
+/* line 22, ../sass/style.sass */
 centerizer {
   position: relative;
   height: 360px;
@@ -81,13 +81,13 @@ centerizer {
   display: table;
 }
 
-/* line 30, ../sass/style.sass */
+/* line 33, ../sass/style.sass */
 .clock {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
-/* line 35, ../sass/style.sass */
+/* line 38, ../sass/style.sass */
 .clock td {
   color: #0d0d0d;
   font-family: sans-serif;
@@ -98,27 +98,46 @@ centerizer {
   text-align: center;
   text-shadow: 0 0 2px #0d0d0d;
 }
-/* line 47, ../sass/style.sass */
+/* line 50, ../sass/style.sass */
 .clock td.active {
   color: white;
   text-shadow: 0 0 5px white;
 }
 
-/* line 51, ../sass/style.sass */
-.dots {
-  margin-top: 20px;
-}
 /* line 54, ../sass/style.sass */
-.dots .one, .dots .two, .dots .three, .dots .four {
-  display: inline;
-  float: left;
-  width: 96.25px;
+.dots {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
   color: #0d0d0d;
   font-size: 20px;
   text-shadow: 0 0 2px #0d0d0d;
 }
-/* line 63, ../sass/style.sass */
-.dots .one.active, .dots .two.active, .dots .three.active, .dots .four.active {
+/* line 66, ../sass/style.sass */
+.dots.active {
   color: white;
   text-shadow: 0 0 5px white;
+}
+/* line 70, ../sass/style.sass */
+.dots.one {
+  left: -60px;
+  top: -60px;
+}
+/* line 74, ../sass/style.sass */
+.dots.two {
+  left: 425px;
+  top: -60px;
+}
+/* line 78, ../sass/style.sass */
+.dots.three {
+  left: 425px;
+  top: 400px;
+}
+/* line 82, ../sass/style.sass */
+.dots.four {
+  left: -60px;
+  top: 400px;
 }

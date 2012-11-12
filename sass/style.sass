@@ -11,6 +11,9 @@ $cell_font_size: 26px
 $width: $cell_width*11
 $height: $cell_height*10
 
+$dot_font_size: 20px
+$dot_cell_size: 20px
+$dot_spacing: 50px
 
 
 body
@@ -49,17 +52,34 @@ centerizer
       text-shadow: 0 0 5px $active_color
 
 .dots
-  margin-top: 20px
+  position: absolute
+  width: $dot_cell_size
+  height: $dot_cell_size
+  display: table-cell
+  vertical-align: middle
+  text-align: center
+  color: $inactive_color
 
-  .one, .two, .three, .four
-    display: inline
-    float: left
-    width: $width/4
-    color: $inactive_color
+  font-size: $dot_font_size
+  text-shadow: 0 0 2px $inactive_color
 
-    font-size: 20px
-    text-shadow: 0 0 2px $inactive_color
+  &.active
+    color: $active_color
+    text-shadow: 0 0 5px $active_color
 
-    &.active
-      color: $active_color
-      text-shadow: 0 0 5px $active_color
+  &.one
+    left: -$dot_spacing -$dot_cell_size/2
+    top: -$dot_spacing -$dot_cell_size/2
+
+  &.two
+    left: $width + $dot_spacing -$dot_cell_size/2
+    top: -$dot_spacing -$dot_cell_size/2
+
+  &.three
+    left: $width + $dot_spacing -$dot_cell_size/2
+    top: $height + $dot_spacing -$dot_cell_size/2
+
+  &.four
+    left: -$dot_spacing -$dot_cell_size/2
+    top: $height + $dot_spacing -$dot_cell_size/2
+
