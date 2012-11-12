@@ -108,14 +108,15 @@ centerizer {
 .dots {
   margin-top: 20px;
 }
-/* line 53, ../sass/style.sass */
+/* line 54, ../sass/style.sass */
 .dots .one, .dots .two, .dots .three, .dots .four {
   display: inline;
   float: left;
   width: 96.25px;
   color: #0d0d0d;
+  font-size: 20px;
 }
-/* line 59, ../sass/style.sass */
+/* line 62, ../sass/style.sass */
 .dots .one.active, .dots .two.active, .dots .three.active, .dots .four.active {
   color: white;
 }
