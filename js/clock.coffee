@@ -15,7 +15,9 @@ class @Clock
     [hours, minutes]
 
   displayHours = (hours, minutes) ->
-    switch hours
+    d_hours = if minutes < 25 then hours else hours + 1
+    d_hours = if d_hours == 13 then 1 else d_hours
+    switch d_hours
       when 1
         if minutes < 5 then activate(digits.h_ein) else activate(digits.h_eins)
       when 2 then activate(digits.h_zwei)

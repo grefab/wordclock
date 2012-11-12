@@ -12,7 +12,7 @@
 
     mainLoop = function() {
       displayTime();
-      return setTimeout(mainLoop, 1000);
+      return setTimeout(mainLoop, 500);
     };
 
     getTime = function() {
@@ -26,7 +26,10 @@
     };
 
     displayHours = function(hours, minutes) {
-      switch (hours) {
+      var d_hours;
+      d_hours = minutes < 25 ? hours : hours + 1;
+      d_hours = d_hours === 13 ? 1 : d_hours;
+      switch (d_hours) {
         case 1:
           if (minutes < 5) {
             return activate(digits.h_ein);
