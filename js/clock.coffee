@@ -79,14 +79,23 @@ class @Clock
     if displayDots > 2 then activate(dots.three) else deactivate(dots.three)
     if displayDots > 3 then activate(dots.four) else deactivate(dots.four)
 
+  lastTime = [-1, -1, -1]
+
+  arrayEqual = (a, b) ->
+    a.length is b.length and a.every (elem, i) -> elem is b[i]
+
   displayTime = ->
-    [hours, minutes, dots] = getTime()
-    blank()
-    activate(digits.es)
-    activate(digits.ist)
-    displayHours(hours, minutes)
-    displayMinutes(minutes)
-    displayDots(dots)
+    currentTime = getTime()
+    unless arrayEqual(lastTime, currentTime)
+      lastTime = currentTime
+      blank()
+      activate(digits.es)
+      activate(digits.ist)
+
+      [hours, minutes, dots] = currentTime
+      displayHours(hours, minutes)
+      displayMinutes(minutes)
+      displayDots(dots)
 
   blank = ->
     $(".clock .grid td").removeClass("active")

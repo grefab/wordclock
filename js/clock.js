@@ -2,7 +2,7 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, blank, createSelector, deactivate, digits, displayDots, displayHours, displayMinutes, displayTime, dots, getTime, mainLoop;
+    var activate, arrayEqual, blank, createSelector, deactivate, digits, displayDots, displayHours, displayMinutes, displayTime, dots, getTime, lastTime, mainLoop;
 
     function Clock() {}
 
@@ -129,15 +129,27 @@
       }
     };
 
+    lastTime = [-1, -1, -1];
+
+    arrayEqual = function(a, b) {
+      return a.length === b.length && a.every(function(elem, i) {
+        return elem === b[i];
+      });
+    };
+
     displayTime = function() {
-      var dots, hours, minutes, _ref;
-      _ref = getTime(), hours = _ref[0], minutes = _ref[1], dots = _ref[2];
-      blank();
-      activate(digits.es);
-      activate(digits.ist);
-      displayHours(hours, minutes);
-      displayMinutes(minutes);
-      return displayDots(dots);
+      var currentTime, dots, hours, minutes;
+      currentTime = getTime();
+      if (!arrayEqual(lastTime, currentTime)) {
+        lastTime = currentTime;
+        blank();
+        activate(digits.es);
+        activate(digits.ist);
+        hours = currentTime[0], minutes = currentTime[1], dots = currentTime[2];
+        displayHours(hours, minutes);
+        displayMinutes(minutes);
+        return displayDots(dots);
+      }
     };
 
     blank = function() {
