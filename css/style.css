@@ -115,8 +115,10 @@ centerizer {
   width: 96.25px;
   color: #0d0d0d;
   font-size: 20px;
+  text-shadow: 0 0 2px #0d0d0d;
 }
-/* line 62, ../sass/style.sass */
+/* line 63, ../sass/style.sass */
 .dots .one.active, .dots .two.active, .dots .three.active, .dots .four.active {
   color: white;
+  text-shadow: 0 0 5px white;
 }
