@@ -98,7 +98,7 @@ class @Clock
           displayHours(hours, minutes)
           displayMinutes(minutes)
           displayDots(dots)
-        , 100)
+        , 1)
 
   blank = ->
     $(".clock .grid td").removeClass("active")

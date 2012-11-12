@@ -151,7 +151,7 @@
           displayHours(hours, minutes);
           displayMinutes(minutes);
           return displayDots(dots);
-        }, 100);
+        }, 1);
       }
     };
 
