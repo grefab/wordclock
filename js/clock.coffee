@@ -74,7 +74,6 @@ class @Clock
         activate(digits.vor)
 
   displayDots = (displayDots) ->
-    console.log displayDots, dots.three
     if displayDots > 0 then activate(dots.one) else deactivate(dots.one)
     if displayDots > 1 then activate(dots.two) else deactivate(dots.two)
     if displayDots > 2 then activate(dots.three) else deactivate(dots.three)

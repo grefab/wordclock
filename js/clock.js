@@ -107,7 +107,6 @@
     };
 
     displayDots = function(displayDots) {
-      console.log(displayDots, dots.three);
       if (displayDots > 0) {
         activate(dots.one);
       } else {
