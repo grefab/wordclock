@@ -1,6 +1,83 @@
 class @Clock
   @start: ->
     activate(digits.es)
+    displayTime()
+
+  getTime = ->
+    d = new Date()
+    hours = d.getHours()
+    hours = if hours > 12 then hours - 12 else hours
+    hours = if hours == 0 then 12 else hours
+    minutes = d.getMinutes()
+    [hours, minutes]
+
+  displayHours = (hours, minutes) ->
+    switch hours
+      when 1
+        if minutes < 5 then activate(digits.h_ein) else activate(digits.h_eins)
+      when 2 then activate(digits.h_zwei)
+      when 3 then activate(digits.h_drei)
+      when 4 then activate(digits.h_vier)
+      when 5 then activate(digits.h_fuenf)
+      when 6 then activate(digits.h_sechs)
+      when 7 then activate(digits.h_sieben)
+      when 8 then activate(digits.h_acht)
+      when 9 then activate(digits.h_neun)
+      when 10 then activate(digits.h_zehn)
+      when 11 then activate(digits.h_elf)
+      when 12 then activate(digits.h_zwoelf)
+
+  displayMinutes = (minutes) ->
+    fives = Math.floor(minutes / 5)
+    console.log(fives)
+    switch fives
+      when 0
+        activate(digits.uhr)
+      when 1
+        activate(digits.m_fuenf)
+        activate(digits.nach)
+      when 2
+        activate(digits.m_zehn)
+        activate(digits.nach)
+      when 3
+        activate(digits.m_viertel)
+        activate(digits.nach)
+      when 4
+        activate(digits.m_zwanzig)
+        activate(digits.nach)
+      when 5
+        activate(digits.m_fuenf)
+        activate(digits.vor)
+        activate(digits.halb)
+      when 6
+        activate(digits.halb)
+      when 7
+        activate(digits.m_fuenf)
+        activate(digits.nach)
+        activate(digits.halb)
+      when 8
+        activate(digits.m_zwanzig)
+        activate(digits.vor)
+      when 9
+        activate(digits.m_viertel)
+        activate(digits.vor)
+      when 10
+        activate(digits.m_zehn)
+        activate(digits.vor)
+      when 11
+        activate(digits.m_fuenf)
+        activate(digits.vor)
+
+  displayTime = ->
+    [hours, minutes] = getTime()
+    blank()
+    activate(digits.es)
+    activate(digits.ist)
+    displayHours(hours, minutes)
+    displayMinutes(minutes)
+
+  blank = ->
+    $(".clock td").removeClass("active")
 
   activate = (digit) ->
     $(digit).addClass("active")
@@ -30,6 +107,7 @@ class @Clock
     h_zwoelf: createSelector([[6,5], [7,5], [8,5], [9,5], [10,5]])
 
     h_zwei: createSelector([[1,6], [2,6], [3,6], [4,6]])
+    h_ein: createSelector([[3,6], [4,6], [5,6]])
     h_eins: createSelector([[3,6], [4,6], [5,6], [6,6]])
     h_sieben: createSelector([[6,6], [7,6], [8,6], [9,6], [10,6], [11,6]])
 

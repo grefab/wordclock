@@ -2,12 +2,115 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, createSelector, digits;
+    var activate, blank, createSelector, digits, displayHours, displayMinutes, displayTime, getTime;
 
     function Clock() {}
 
     Clock.start = function() {
-      return activate(digits.es);
+      activate(digits.es);
+      return displayTime();
+    };
+
+    getTime = function() {
+      var d, hours, minutes;
+      d = new Date();
+      hours = d.getHours();
+      hours = hours > 12 ? hours - 12 : hours;
+      hours = hours === 0 ? 12 : hours;
+      minutes = d.getMinutes();
+      return [hours, minutes];
+    };
+
+    displayHours = function(hours, minutes) {
+      switch (hours) {
+        case 1:
+          if (minutes < 5) {
+            return activate(digits.h_ein);
+          } else {
+            return activate(digits.h_eins);
+          }
+          break;
+        case 2:
+          return activate(digits.h_zwei);
+        case 3:
+          return activate(digits.h_drei);
+        case 4:
+          return activate(digits.h_vier);
+        case 5:
+          return activate(digits.h_fuenf);
+        case 6:
+          return activate(digits.h_sechs);
+        case 7:
+          return activate(digits.h_sieben);
+        case 8:
+          return activate(digits.h_acht);
+        case 9:
+          return activate(digits.h_neun);
+        case 10:
+          return activate(digits.h_zehn);
+        case 11:
+          return activate(digits.h_elf);
+        case 12:
+          return activate(digits.h_zwoelf);
+      }
+    };
+
+    displayMinutes = function(minutes) {
+      var fives;
+      fives = Math.floor(minutes / 5);
+      console.log(fives);
+      switch (fives) {
+        case 0:
+          return activate(digits.uhr);
+        case 1:
+          activate(digits.m_fuenf);
+          return activate(digits.nach);
+        case 2:
+          activate(digits.m_zehn);
+          return activate(digits.nach);
+        case 3:
+          activate(digits.m_viertel);
+          return activate(digits.nach);
+        case 4:
+          activate(digits.m_zwanzig);
+          return activate(digits.nach);
+        case 5:
+          activate(digits.m_fuenf);
+          activate(digits.vor);
+          return activate(digits.halb);
+        case 6:
+          return activate(digits.halb);
+        case 7:
+          activate(digits.m_fuenf);
+          activate(digits.nach);
+          return activate(digits.halb);
+        case 8:
+          activate(digits.m_zwanzig);
+          return activate(digits.vor);
+        case 9:
+          activate(digits.m_viertel);
+          return activate(digits.vor);
+        case 10:
+          activate(digits.m_zehn);
+          return activate(digits.vor);
+        case 11:
+          activate(digits.m_fuenf);
+          return activate(digits.vor);
+      }
+    };
+
+    displayTime = function() {
+      var hours, minutes, _ref;
+      _ref = getTime(), hours = _ref[0], minutes = _ref[1];
+      blank();
+      activate(digits.es);
+      activate(digits.ist);
+      displayHours(hours, minutes);
+      return displayMinutes(minutes);
+    };
+
+    blank = function() {
+      return $(".clock td").removeClass("active");
     };
 
     activate = function(digit) {
@@ -38,6 +141,7 @@
       halb: createSelector([[1, 5], [2, 5], [3, 5], [4, 5]]),
       h_zwoelf: createSelector([[6, 5], [7, 5], [8, 5], [9, 5], [10, 5]]),
       h_zwei: createSelector([[1, 6], [2, 6], [3, 6], [4, 6]]),
+      h_ein: createSelector([[3, 6], [4, 6], [5, 6]]),
       h_eins: createSelector([[3, 6], [4, 6], [5, 6], [6, 6]]),
       h_sieben: createSelector([[6, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6]]),
       h_drei: createSelector([[2, 7], [3, 7], [4, 7], [5, 7]]),
