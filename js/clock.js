@@ -2,7 +2,7 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, blank, createSelector, digits, displayHours, displayMinutes, displayTime, getTime, mainLoop;
+    var activate, blank, createSelector, deactivate, digits, displayDots, displayHours, displayMinutes, displayTime, dots, getTime, mainLoop;
 
     function Clock() {}
 
@@ -16,13 +16,14 @@
     };
 
     getTime = function() {
-      var d, hours, minutes;
+      var d, dots, hours, minutes;
       d = new Date();
       hours = d.getHours();
       hours = hours > 12 ? hours - 12 : hours;
       hours = hours === 0 ? 12 : hours;
       minutes = d.getMinutes();
-      return [hours, minutes];
+      dots = minutes % 5;
+      return [hours, minutes, dots];
     };
 
     displayHours = function(hours, minutes) {
@@ -105,22 +106,51 @@
       }
     };
 
+    displayDots = function(displayDots) {
+      console.log(displayDots, dots.three);
+      if (displayDots > 0) {
+        activate(dots.one);
+      } else {
+        deactivate(dots.one);
+      }
+      if (displayDots > 1) {
+        activate(dots.two);
+      } else {
+        deactivate(dots.two);
+      }
+      if (displayDots > 2) {
+        activate(dots.three);
+      } else {
+        deactivate(dots.three);
+      }
+      if (displayDots > 3) {
+        return activate(dots.four);
+      } else {
+        return deactivate(dots.four);
+      }
+    };
+
     displayTime = function() {
-      var hours, minutes, _ref;
-      _ref = getTime(), hours = _ref[0], minutes = _ref[1];
+      var dots, hours, minutes, _ref;
+      _ref = getTime(), hours = _ref[0], minutes = _ref[1], dots = _ref[2];
       blank();
       activate(digits.es);
       activate(digits.ist);
       displayHours(hours, minutes);
-      return displayMinutes(minutes);
+      displayMinutes(minutes);
+      return displayDots(dots);
     };
 
     blank = function() {
-      return $(".clock td").removeClass("active");
+      return $(".clock .grid td").removeClass("active");
     };
 
-    activate = function(digit) {
-      return $(digit).addClass("active");
+    activate = function(selector) {
+      return $(selector).addClass("active");
+    };
+
+    deactivate = function(selector) {
+      return $(selector).removeClass("active");
     };
 
     createSelector = function(coordinates) {
@@ -128,7 +158,7 @@
       s = "";
       for (_i = 0, _len = coordinates.length; _i < _len; _i++) {
         c = coordinates[_i];
-        s += ".clock tr:nth-child(" + c[1] + ") td:nth-child(" + c[0] + "), ";
+        s += ".clock .grid tr:nth-child(" + c[1] + ") td:nth-child(" + c[0] + "), ";
       }
       return s.substr(0, s.length - 2);
     };
@@ -159,6 +189,13 @@
       h_zehn: createSelector([[6, 9], [7, 9], [8, 9], [9, 9]]),
       h_sechs: createSelector([[2, 10], [3, 10], [4, 10], [5, 10], [6, 10]]),
       uhr: createSelector([[9, 10], [10, 10], [11, 10]])
+    };
+
+    dots = {
+      one: ".clock .dots .one",
+      two: ".clock .dots .two",
+      three: ".clock .dots .three",
+      four: ".clock .dots .four"
     };
 
     return Clock;

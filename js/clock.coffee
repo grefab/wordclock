@@ -12,7 +12,8 @@ class @Clock
     hours = if hours > 12 then hours - 12 else hours
     hours = if hours == 0 then 12 else hours
     minutes = d.getMinutes()
-    [hours, minutes]
+    dots = minutes % 5
+    [hours, minutes, dots]
 
   displayHours = (hours, minutes) ->
     d_hours = if minutes < 25 then hours else hours + 1
@@ -72,23 +73,34 @@ class @Clock
         activate(digits.m_fuenf)
         activate(digits.vor)
 
+  displayDots = (displayDots) ->
+    console.log displayDots, dots.three
+    if displayDots > 0 then activate(dots.one) else deactivate(dots.one)
+    if displayDots > 1 then activate(dots.two) else deactivate(dots.two)
+    if displayDots > 2 then activate(dots.three) else deactivate(dots.three)
+    if displayDots > 3 then activate(dots.four) else deactivate(dots.four)
+
   displayTime = ->
-    [hours, minutes] = getTime()
+    [hours, minutes, dots] = getTime()
     blank()
     activate(digits.es)
     activate(digits.ist)
     displayHours(hours, minutes)
     displayMinutes(minutes)
+    displayDots(dots)
 
   blank = ->
-    $(".clock td").removeClass("active")
+    $(".clock .grid td").removeClass("active")
 
-  activate = (digit) ->
-    $(digit).addClass("active")
+  activate = (selector) ->
+    $(selector).addClass("active")
+
+  deactivate = (selector) ->
+    $(selector).removeClass("active")
 
   createSelector = (coordinates) ->
     s = ""
-    s += ".clock tr:nth-child(#{c[1]}) td:nth-child(#{c[0]}), " for c in coordinates
+    s += ".clock .grid tr:nth-child(#{c[1]}) td:nth-child(#{c[0]}), " for c in coordinates
     s.substr(0, s.length - 2)
 
   digits =
@@ -129,3 +141,8 @@ class @Clock
 
     uhr: createSelector([[9,10], [10,10], [11,10]])
 
+  dots =
+    one: ".clock .dots .one"
+    two: ".clock .dots .two"
+    three: ".clock .dots .three"
+    four: ".clock .dots .four"

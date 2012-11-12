@@ -48,3 +48,14 @@ centerizer
       color: $active_color
       text-shadow: 0 0 5px $active_color
 
+.dots
+  margin-top: 20px
+
+  .one, .two, .three, .four
+    display: inline
+    float: left
+    width: $width/4
+    color: $inactive_color
+
+    &.active
+      color: $active_color
