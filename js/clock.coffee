@@ -4,7 +4,7 @@ class @Clock
 
   mainLoop = ->
     displayTime()
-    setTimeout(mainLoop, 1000)
+    setTimeout(mainLoop, 500)
 
   getTime = ->
     d = new Date()
