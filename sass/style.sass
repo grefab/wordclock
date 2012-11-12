@@ -1,12 +1,12 @@
 @import "compass/reset"
 
 $bg_color: black
-$inactive_color: #222
 $active_color: white
+$inactive_color: darken($active_color, 95%)
 
 $cell_width: 35px
 $cell_height: 36px
-$cell_font_size: 20px
+$cell_font_size: 26px
 
 $width: $cell_width*11
 $height: $cell_height*10
@@ -42,6 +42,9 @@ centerizer
     vertical-align: middle
     text-align: center
 
+    text-shadow: 0 0 2px $inactive_color
+
     &.active
       color: $active_color
+      text-shadow: 0 0 5px $active_color
 
