@@ -2,11 +2,16 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, arrayEqual, blank, createSelector, deactivate, digits, displayDots, displayHours, displayMinutes, displayTime, dots, getTime, lastTime, mainLoop;
+    var activate, arrayEqual, blank, createSelector, deactivate, displayDots, displayHours, displayMinutes, displayTime, getTime, init_ui, lastTime, mainLoop, ui_digits, ui_dots;
 
     function Clock() {}
 
+    ui_digits = {};
+
+    ui_dots = {};
+
     Clock.start = function() {
+      init_ui();
       return mainLoop();
     };
 
@@ -33,33 +38,33 @@
       switch (d_hours) {
         case 1:
           if (minutes < 5) {
-            return activate(digits.h_ein);
+            return activate(ui_digits.$h_ein);
           } else {
-            return activate(digits.h_eins);
+            return activate(ui_digits.$h_eins);
           }
           break;
         case 2:
-          return activate(digits.h_zwei);
+          return activate(ui_digits.$h_zwei);
         case 3:
-          return activate(digits.h_drei);
+          return activate(ui_digits.$h_drei);
         case 4:
-          return activate(digits.h_vier);
+          return activate(ui_digits.$h_vier);
         case 5:
-          return activate(digits.h_fuenf);
+          return activate(ui_digits.$h_fuenf);
         case 6:
-          return activate(digits.h_sechs);
+          return activate(ui_digits.$h_sechs);
         case 7:
-          return activate(digits.h_sieben);
+          return activate(ui_digits.$h_sieben);
         case 8:
-          return activate(digits.h_acht);
+          return activate(ui_digits.$h_acht);
         case 9:
-          return activate(digits.h_neun);
+          return activate(ui_digits.$h_neun);
         case 10:
-          return activate(digits.h_zehn);
+          return activate(ui_digits.$h_zehn);
         case 11:
-          return activate(digits.h_elf);
+          return activate(ui_digits.$h_elf);
         case 12:
-          return activate(digits.h_zwoelf);
+          return activate(ui_digits.$h_zwoelf);
       }
     };
 
@@ -68,64 +73,64 @@
       fives = Math.floor(minutes / 5);
       switch (fives) {
         case 0:
-          return activate(digits.uhr);
+          return activate(ui_digits.$uhr);
         case 1:
-          activate(digits.m_fuenf);
-          return activate(digits.nach);
+          activate(ui_digits.$m_fuenf);
+          return activate(ui_digits.$nach);
         case 2:
-          activate(digits.m_zehn);
-          return activate(digits.nach);
+          activate(ui_digits.$m_zehn);
+          return activate(ui_digits.$nach);
         case 3:
-          activate(digits.m_viertel);
-          return activate(digits.nach);
+          activate(ui_digits.$m_viertel);
+          return activate(ui_digits.$nach);
         case 4:
-          activate(digits.m_zwanzig);
-          return activate(digits.nach);
+          activate(ui_digits.$m_zwanzig);
+          return activate(ui_digits.$nach);
         case 5:
-          activate(digits.m_fuenf);
-          activate(digits.vor);
-          return activate(digits.halb);
+          activate(ui_digits.$m_fuenf);
+          activate(ui_digits.$vor);
+          return activate(ui_digits.$halb);
         case 6:
-          return activate(digits.halb);
+          return activate(ui_digits.$halb);
         case 7:
-          activate(digits.m_fuenf);
-          activate(digits.nach);
-          return activate(digits.halb);
+          activate(ui_digits.$m_fuenf);
+          activate(ui_digits.$nach);
+          return activate(ui_digits.$halb);
         case 8:
-          activate(digits.m_zwanzig);
-          return activate(digits.vor);
+          activate(ui_digits.$m_zwanzig);
+          return activate(ui_digits.$vor);
         case 9:
-          activate(digits.m_viertel);
-          return activate(digits.vor);
+          activate(ui_digits.$m_viertel);
+          return activate(ui_digits.$vor);
         case 10:
-          activate(digits.m_zehn);
-          return activate(digits.vor);
+          activate(ui_digits.$m_zehn);
+          return activate(ui_digits.$vor);
         case 11:
-          activate(digits.m_fuenf);
-          return activate(digits.vor);
+          activate(ui_digits.$m_fuenf);
+          return activate(ui_digits.$vor);
       }
     };
 
     displayDots = function(displayDots) {
       if (displayDots > 0) {
-        activate(dots.one);
+        activate(ui_dots.$one);
       } else {
-        deactivate(dots.one);
+        deactivate(ui_dots.$one);
       }
       if (displayDots > 1) {
-        activate(dots.two);
+        activate(ui_dots.$two);
       } else {
-        deactivate(dots.two);
+        deactivate(ui_dots.$two);
       }
       if (displayDots > 2) {
-        activate(dots.three);
+        activate(ui_dots.$three);
       } else {
-        deactivate(dots.three);
+        deactivate(ui_dots.$three);
       }
       if (displayDots > 3) {
-        return activate(dots.four);
+        return activate(ui_dots.$four);
       } else {
-        return deactivate(dots.four);
+        return deactivate(ui_dots.$four);
       }
     };
 
@@ -143,8 +148,8 @@
       if (!arrayEqual(lastTime, currentTime)) {
         lastTime = currentTime;
         blank();
-        activate(digits.es);
-        activate(digits.ist);
+        activate(ui_digits.$es);
+        activate(ui_digits.$ist);
         hours = currentTime[0], minutes = currentTime[1], dots = currentTime[2];
         displayHours(hours, minutes);
         displayMinutes(minutes);
@@ -153,15 +158,15 @@
     };
 
     blank = function() {
-      return $(".clock .grid td").removeClass("active");
+      return ui_digits.$all.removeClass("active");
     };
 
-    activate = function(selector) {
-      return $(selector).addClass("active");
+    activate = function($element) {
+      return $element.addClass("active");
     };
 
-    deactivate = function(selector) {
-      return $(selector).removeClass("active");
+    deactivate = function($element) {
+      return $element.removeClass("active");
     };
 
     createSelector = function(coordinates) {
@@ -174,39 +179,37 @@
       return s.substr(0, s.length - 2);
     };
 
-    digits = {
-      es: createSelector([[1, 1], [2, 1]]),
-      ist: createSelector([[4, 1], [5, 1], [6, 1]]),
-      m_fuenf: createSelector([[8, 1], [9, 1], [10, 1], [11, 1]]),
-      m_zehn: createSelector([[1, 2], [2, 2], [3, 2], [4, 2]]),
-      m_fuenfzehn: createSelector([[8, 1], [9, 1], [10, 1], [11, 1], [1, 2], [2, 2], [3, 2], [4, 2]]),
-      m_zwanzig: createSelector([[5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]),
-      m_dreiviertel: createSelector([[1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3]]),
-      m_viertel: createSelector([[5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3]]),
-      nach: createSelector([[3, 4], [4, 4], [5, 4], [6, 4]]),
-      vor: createSelector([[7, 4], [8, 4], [9, 4]]),
-      halb: createSelector([[1, 5], [2, 5], [3, 5], [4, 5]]),
-      h_zwoelf: createSelector([[6, 5], [7, 5], [8, 5], [9, 5], [10, 5]]),
-      h_zwei: createSelector([[1, 6], [2, 6], [3, 6], [4, 6]]),
-      h_ein: createSelector([[3, 6], [4, 6], [5, 6]]),
-      h_eins: createSelector([[3, 6], [4, 6], [5, 6], [6, 6]]),
-      h_sieben: createSelector([[6, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6]]),
-      h_drei: createSelector([[2, 7], [3, 7], [4, 7], [5, 7]]),
-      h_fuenf: createSelector([[8, 7], [9, 7], [10, 7], [11, 7]]),
-      h_elf: createSelector([[1, 8], [2, 8], [3, 8]]),
-      h_neun: createSelector([[4, 8], [5, 8], [6, 8], [7, 8]]),
-      h_vier: createSelector([[8, 8], [9, 8], [10, 8], [11, 8]]),
-      h_acht: createSelector([[2, 9], [3, 9], [4, 9], [5, 9]]),
-      h_zehn: createSelector([[6, 9], [7, 9], [8, 9], [9, 9]]),
-      h_sechs: createSelector([[2, 10], [3, 10], [4, 10], [5, 10], [6, 10]]),
-      uhr: createSelector([[9, 10], [10, 10], [11, 10]])
-    };
-
-    dots = {
-      one: ".clock .dots.one",
-      two: ".clock .dots.two",
-      three: ".clock .dots.three",
-      four: ".clock .dots.four"
+    init_ui = function() {
+      ui_digits.$all = $(".clock .grid td");
+      ui_digits.$es = $(createSelector([[1, 1], [2, 1]]));
+      ui_digits.$ist = $(createSelector([[4, 1], [5, 1], [6, 1]]));
+      ui_digits.$m_fuenf = $(createSelector([[8, 1], [9, 1], [10, 1], [11, 1]]));
+      ui_digits.$m_zehn = $(createSelector([[1, 2], [2, 2], [3, 2], [4, 2]]));
+      ui_digits.$m_fuenfzehn = $(createSelector([[8, 1], [9, 1], [10, 1], [11, 1], [1, 2], [2, 2], [3, 2], [4, 2]]));
+      ui_digits.$m_zwanzig = $(createSelector([[5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [11, 2]]));
+      ui_digits.$m_dreiviertel = $(createSelector([[1, 3], [2, 3], [3, 3], [4, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3]]));
+      ui_digits.$m_viertel = $(createSelector([[5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [11, 3]]));
+      ui_digits.$nach = $(createSelector([[3, 4], [4, 4], [5, 4], [6, 4]]));
+      ui_digits.$vor = $(createSelector([[7, 4], [8, 4], [9, 4]]));
+      ui_digits.$halb = $(createSelector([[1, 5], [2, 5], [3, 5], [4, 5]]));
+      ui_digits.$h_zwoelf = $(createSelector([[6, 5], [7, 5], [8, 5], [9, 5], [10, 5]]));
+      ui_digits.$h_zwei = $(createSelector([[1, 6], [2, 6], [3, 6], [4, 6]]));
+      ui_digits.$h_ein = $(createSelector([[3, 6], [4, 6], [5, 6]]));
+      ui_digits.$h_eins = $(createSelector([[3, 6], [4, 6], [5, 6], [6, 6]]));
+      ui_digits.$h_sieben = $(createSelector([[6, 6], [7, 6], [8, 6], [9, 6], [10, 6], [11, 6]]));
+      ui_digits.$h_drei = $(createSelector([[2, 7], [3, 7], [4, 7], [5, 7]]));
+      ui_digits.$h_fuenf = $(createSelector([[8, 7], [9, 7], [10, 7], [11, 7]]));
+      ui_digits.$h_elf = $(createSelector([[1, 8], [2, 8], [3, 8]]));
+      ui_digits.$h_neun = $(createSelector([[4, 8], [5, 8], [6, 8], [7, 8]]));
+      ui_digits.$h_vier = $(createSelector([[8, 8], [9, 8], [10, 8], [11, 8]]));
+      ui_digits.$h_acht = $(createSelector([[2, 9], [3, 9], [4, 9], [5, 9]]));
+      ui_digits.$h_zehn = $(createSelector([[6, 9], [7, 9], [8, 9], [9, 9]]));
+      ui_digits.$h_sechs = $(createSelector([[2, 10], [3, 10], [4, 10], [5, 10], [6, 10]]));
+      ui_digits.$uhr = $(createSelector([[9, 10], [10, 10], [11, 10]]));
+      ui_dots.$one = $(".clock .dots.one");
+      ui_dots.$two = $(".clock .dots.two");
+      ui_dots.$three = $(".clock .dots.three");
+      return ui_dots.$four = $(".clock .dots.four");
     };
 
     return Clock;
