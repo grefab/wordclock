@@ -78,37 +78,37 @@ class @Clock
         activate(ui_digits.$vor)
 
   displayDots = (displayDots) ->
-    if displayDots > 0 then activate(ui_dots.$one) else deactivate(ui_dots.$one)
-    if displayDots > 1 then activate(ui_dots.$two) else deactivate(ui_dots.$two)
-    if displayDots > 2 then activate(ui_dots.$three) else deactivate(ui_dots.$three)
-    if displayDots > 3 then activate(ui_dots.$four) else deactivate(ui_dots.$four)
+    if displayDots > 0 then activate(ui_dots.$one)
+    if displayDots > 1 then activate(ui_dots.$two)
+    if displayDots > 2 then activate(ui_dots.$three)
+    if displayDots > 3 then activate(ui_dots.$four)
 
   lastTime = [-1, -1, -1]
 
   arrayEqual = (a, b) ->
     a.length is b.length and a.every (elem, i) -> elem is b[i]
 
+  $activateMe = $()
+
   displayTime = ->
     currentTime = getTime()
     unless arrayEqual(lastTime, currentTime)
       lastTime = currentTime
-      blank()
+
+      $activateMe = $()
+
       activate(ui_digits.$es)
       activate(ui_digits.$ist)
-
       [hours, minutes, dots] = currentTime
       displayHours(hours, minutes)
       displayMinutes(minutes)
       displayDots(dots)
 
-  blank = ->
-    ui_digits.$all.removeClass("active")
+      $activateMe.addClass("active")
+      ui_digits.$all.not($activateMe).removeClass("active")
 
   activate = ($element) ->
-    $element.addClass("active")
-
-  deactivate = ($element) ->
-    $element.removeClass("active")
+    $activateMe = $activateMe.add($element)
 
   createSelector = (coordinates) ->
     s = ""
@@ -116,7 +116,7 @@ class @Clock
     s.substr(0, s.length - 2)
 
   init_ui = ->
-    ui_digits.$all = $(".clock .grid td")
+    ui_digits.$all = $(".clock .grid td, .clock .dots")
 
     ui_digits.$es = $(createSelector([[1,1], [2,1]]))
     ui_digits.$ist = $(createSelector([[4,1], [5,1], [6,1]]))

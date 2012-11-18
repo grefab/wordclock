@@ -2,7 +2,7 @@
 (function() {
 
   this.Clock = (function() {
-    var activate, arrayEqual, blank, createSelector, deactivate, displayDots, displayHours, displayMinutes, displayTime, getTime, init_ui, lastTime, mainLoop, ui_digits, ui_dots;
+    var $activateMe, activate, arrayEqual, createSelector, displayDots, displayHours, displayMinutes, displayTime, getTime, init_ui, lastTime, mainLoop, ui_digits, ui_dots;
 
     function Clock() {}
 
@@ -114,23 +114,15 @@
     displayDots = function(displayDots) {
       if (displayDots > 0) {
         activate(ui_dots.$one);
-      } else {
-        deactivate(ui_dots.$one);
       }
       if (displayDots > 1) {
         activate(ui_dots.$two);
-      } else {
-        deactivate(ui_dots.$two);
       }
       if (displayDots > 2) {
         activate(ui_dots.$three);
-      } else {
-        deactivate(ui_dots.$three);
       }
       if (displayDots > 3) {
         return activate(ui_dots.$four);
-      } else {
-        return deactivate(ui_dots.$four);
       }
     };
 
@@ -142,31 +134,27 @@
       });
     };
 
+    $activateMe = $();
+
     displayTime = function() {
       var currentTime, dots, hours, minutes;
       currentTime = getTime();
       if (!arrayEqual(lastTime, currentTime)) {
         lastTime = currentTime;
-        blank();
+        $activateMe = $();
         activate(ui_digits.$es);
         activate(ui_digits.$ist);
         hours = currentTime[0], minutes = currentTime[1], dots = currentTime[2];
         displayHours(hours, minutes);
         displayMinutes(minutes);
-        return displayDots(dots);
+        displayDots(dots);
+        $activateMe.addClass("active");
+        return ui_digits.$all.not($activateMe).removeClass("active");
       }
     };
 
-    blank = function() {
-      return ui_digits.$all.removeClass("active");
-    };
-
     activate = function($element) {
-      return $element.addClass("active");
-    };
-
-    deactivate = function($element) {
-      return $element.removeClass("active");
+      return $activateMe = $activateMe.add($element);
     };
 
     createSelector = function(coordinates) {
@@ -180,7 +168,7 @@
     };
 
     init_ui = function() {
-      ui_digits.$all = $(".clock .grid td");
+      ui_digits.$all = $(".clock .grid td, .clock .dots");
       ui_digits.$es = $(createSelector([[1, 1], [2, 1]]));
       ui_digits.$ist = $(createSelector([[4, 1], [5, 1], [6, 1]]));
       ui_digits.$m_fuenf = $(createSelector([[8, 1], [9, 1], [10, 1], [11, 1]]));
