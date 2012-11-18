@@ -148,8 +148,8 @@
         displayHours(hours, minutes);
         displayMinutes(minutes);
         displayDots(dots);
-        $activateMe.addClass("active");
-        return ui_digits.$all.not($activateMe).removeClass("active");
+        $activateMe.not(".active").addClass("active");
+        return ui_digits.$all.not($activateMe).filter(".active").removeClass("active");
       }
     };
 

@@ -104,8 +104,8 @@ class @Clock
       displayMinutes(minutes)
       displayDots(dots)
 
-      $activateMe.addClass("active")
-      ui_digits.$all.not($activateMe).removeClass("active")
+      $activateMe.not(".active").addClass("active")
+      ui_digits.$all.not($activateMe).filter(".active").removeClass("active")
 
   activate = ($element) ->
     $activateMe = $activateMe.add($element)
