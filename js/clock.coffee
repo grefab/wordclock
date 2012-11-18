@@ -110,50 +110,53 @@ class @Clock
   activate = ($element) ->
     $activateMe = $activateMe.add($element)
 
-  createSelector = (coordinates) ->
-    s = ""
-    s += ".clock .grid tr:nth-child(#{c[1]}) td:nth-child(#{c[0]}), " for c in coordinates
-    s.substr(0, s.length - 2)
+  get_jq_cell = (coordinates) ->
+    $(".clock .grid tr:nth-child(#{coordinates[1]}) td:nth-child(#{coordinates[0]})")
+
+  get_jq_cells = (coordinate_list) ->
+    cells = $()
+    cells = cells.add(get_jq_cell(c)) for c in coordinate_list
+    cells
 
   init_ui = ->
     ui_digits.$all = $(".clock .grid td, .clock .dots")
 
-    ui_digits.$es = $(createSelector([[1,1], [2,1]]))
-    ui_digits.$ist = $(createSelector([[4,1], [5,1], [6,1]]))
+    ui_digits.$es = get_jq_cells([[1,1], [2,1]])
+    ui_digits.$ist = get_jq_cells([[4,1], [5,1], [6,1]])
 
-    ui_digits.$m_fuenf = $(createSelector([[8,1], [9,1], [10,1], [11,1]]))
-    ui_digits.$m_zehn = $(createSelector([[1,2], [2,2], [3,2], [4,2]]))
-    ui_digits.$m_fuenfzehn = $(createSelector([[8,1], [9,1], [10,1], [11,1], [1,2], [2,2], [3,2], [4,2]]))
-    ui_digits.$m_zwanzig = $(createSelector([[5,2], [6,2], [7,2], [8,2], [9,2], [10,2], [11,2]]))
+    ui_digits.$m_fuenf = get_jq_cells([[8,1], [9,1], [10,1], [11,1]])
+    ui_digits.$m_zehn = get_jq_cells([[1,2], [2,2], [3,2], [4,2]])
+    ui_digits.$m_fuenfzehn = get_jq_cells([[8,1], [9,1], [10,1], [11,1], [1,2], [2,2], [3,2], [4,2]])
+    ui_digits.$m_zwanzig = get_jq_cells([[5,2], [6,2], [7,2], [8,2], [9,2], [10,2], [11,2]])
 
-    ui_digits.$m_dreiviertel = $(createSelector([[1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3], [8,3], [9,3], [10,3], [11,3]]))
-    ui_digits.$m_viertel = $(createSelector([[5,3], [6,3], [7,3], [8,3], [9,3], [10,3], [11,3]]))
+    ui_digits.$m_dreiviertel = get_jq_cells([[1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3], [8,3], [9,3], [10,3], [11,3]])
+    ui_digits.$m_viertel = get_jq_cells([[5,3], [6,3], [7,3], [8,3], [9,3], [10,3], [11,3]])
 
-    ui_digits.$nach = $(createSelector([[3,4], [4,4], [5,4], [6,4]]))
-    ui_digits.$vor = $(createSelector([[7,4], [8,4], [9,4]]))
+    ui_digits.$nach = get_jq_cells([[3,4], [4,4], [5,4], [6,4]])
+    ui_digits.$vor = get_jq_cells([[7,4], [8,4], [9,4]])
 
-    ui_digits.$halb = $(createSelector([[1,5], [2,5], [3,5], [4,5]]))
+    ui_digits.$halb = get_jq_cells([[1,5], [2,5], [3,5], [4,5]])
 
-    ui_digits.$h_zwoelf = $(createSelector([[6,5], [7,5], [8,5], [9,5], [10,5]]))
+    ui_digits.$h_zwoelf = get_jq_cells([[6,5], [7,5], [8,5], [9,5], [10,5]])
 
-    ui_digits.$h_zwei = $(createSelector([[1,6], [2,6], [3,6], [4,6]]))
-    ui_digits.$h_ein = $(createSelector([[3,6], [4,6], [5,6]]))
-    ui_digits.$h_eins = $(createSelector([[3,6], [4,6], [5,6], [6,6]]))
-    ui_digits.$h_sieben = $(createSelector([[6,6], [7,6], [8,6], [9,6], [10,6], [11,6]]))
+    ui_digits.$h_zwei = get_jq_cells([[1,6], [2,6], [3,6], [4,6]])
+    ui_digits.$h_ein = get_jq_cells([[3,6], [4,6], [5,6]])
+    ui_digits.$h_eins = get_jq_cells([[3,6], [4,6], [5,6], [6,6]])
+    ui_digits.$h_sieben = get_jq_cells([[6,6], [7,6], [8,6], [9,6], [10,6], [11,6]])
 
-    ui_digits.$h_drei = $(createSelector([[2,7], [3,7], [4,7], [5,7]]))
-    ui_digits.$h_fuenf = $(createSelector([[8,7], [9,7], [10,7], [11,7]]))
+    ui_digits.$h_drei = get_jq_cells([[2,7], [3,7], [4,7], [5,7]])
+    ui_digits.$h_fuenf = get_jq_cells([[8,7], [9,7], [10,7], [11,7]])
 
-    ui_digits.$h_elf = $(createSelector([[1,8], [2,8], [3,8]]))
-    ui_digits.$h_neun = $(createSelector([[4,8], [5,8], [6,8], [7,8]]))
-    ui_digits.$h_vier = $(createSelector([[8,8], [9,8], [10,8], [11,8]]))
+    ui_digits.$h_elf = get_jq_cells([[1,8], [2,8], [3,8]])
+    ui_digits.$h_neun = get_jq_cells([[4,8], [5,8], [6,8], [7,8]])
+    ui_digits.$h_vier = get_jq_cells([[8,8], [9,8], [10,8], [11,8]])
 
-    ui_digits.$h_acht = $(createSelector([[2,9], [3,9], [4,9], [5,9]]))
-    ui_digits.$h_zehn = $(createSelector([[6,9], [7,9], [8,9], [9,9]]))
+    ui_digits.$h_acht = get_jq_cells([[2,9], [3,9], [4,9], [5,9]])
+    ui_digits.$h_zehn = get_jq_cells([[6,9], [7,9], [8,9], [9,9]])
 
-    ui_digits.$h_sechs = $(createSelector([[2,10], [3,10], [4,10], [5,10], [6,10]]))
+    ui_digits.$h_sechs = get_jq_cells([[2,10], [3,10], [4,10], [5,10], [6,10]])
 
-    ui_digits.$uhr = $(createSelector([[9,10], [10,10], [11,10]]))
+    ui_digits.$uhr = get_jq_cells([[9,10], [10,10], [11,10]])
 
     ui_dots.$one = $(".clock .dots.one")
     ui_dots.$two = $(".clock .dots.two")
